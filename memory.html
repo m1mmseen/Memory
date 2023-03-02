@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory</title>
+
+</head>
+<body>
+    <h1>Memory-Prototyp</h1>
+    <div id="app">
+        Clicks: {{message}}
+        <br/>
+        <div class="flex-container">
+            <div v-for="(card,index) in pictureCards" :key="index" @click="clickMethod(index)">
+                <img v-if="isDiscovered(index)" :src="card.pic"></img>
+                <img v-else :src="background"></img>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    const app= new Vue({
+        el: '#app',
+        data:{
+            message: '0',
+            background: 'img/back.png',
+            clicks: 0,
+            pictureCards: [],
+            discoveredCards:0,
+        },
+        methods:{
+            isDiscovered(index){
+                return (this.pictureCards[index].discovered);
+            },
+            clickMethod(index){
+                
+                if (this.pictureCards[index].discovered == false){
+                    if (this.discoveredCards <= 1){
+                        this.discoveredCards += 1;
+                        this.clicks +=1;
+                        this.pictureCards[index].discovered = true;
+                        this.message = this.clicks.toString()
+                    }
+                }
+                else {
+                    this.clicks += 1;
+                    this.message = this.clicks.toString();
+                    this.pictureCards[index].discovered = false;
+                    this.discoveredCards -= 1;
+                    
+  
+                }
+
+
+                
+                    
+
+
+;
+            }
+        },
+        mounted() {
+            let images = [
+                {pic: 'img/circle.png', discovered: false},
+                {pic: 'img/cloud.png', discovered: false},
+                {pic: 'img/flower.png', discovered: false},
+                {pic: 'img/heart.png', discovered: false},
+                {pic: 'img/hexagon.png', discovered: false},
+                {pic: 'img/smiley.png', discovered: false},
+                {pic: 'img/star6.png', discovered: false},
+                {pic: 'img/triangle.png', discovered: false},
+            ];
+            const doubledImages = [...images, ...images];
+            doubledImages.sort(() => Math.random() - 0.5);
+            this.pictureCards = JSON.parse(JSON.stringify(doubledImages));
+            
+        },
+    });
+</script>
+</html>
+<style>
+    .flex-container{
+        display: flex;
+        width: 660px;
+        justify-content: space-evenly;
+        flex-flow: row wrap;
+    }
+</style>
