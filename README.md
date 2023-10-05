@@ -1,4 +1,4 @@
-<img alt="Static Badge" src="https://img.shields.io/badge/Project level-Simple-blue">
+<img alt="Static Badge" src="https://img.shields.io/badge/Project level-Simple-green">
 
 # Memory
 simple memory with Vue.js with clickable cards and counter
